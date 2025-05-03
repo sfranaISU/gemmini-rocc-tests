@@ -62,6 +62,8 @@ tests = \
 	global_average \
 	gemmini_counter \
 	template \
+	mvin_mvout_bandwidth \
+	AES_test\
 
 tests_baremetal = $(tests:=-baremetal)
 
@@ -124,12 +126,29 @@ vpath %.c $(src_dir)
 %-baremetal: %.c $(GEMMINI_HEADERS)
 	$(CC_BAREMETAL) $(CFLAGS_BAREMETAL) $< $(LFLAGS) -o $@ \
 		$(wildcard $(BENCH_COMMON)/*.c) $(wildcard $(BENCH_COMMON)/*.S) $(LIBS)
+# %-baremetal: %.c $(GEMMINI_HEADERS)
+# 	$(CC_BAREMETAL) $(CFLAGS_BAREMETAL) $< \
+# 		$(abs_top_srcdir)/riscv-tests/benchmarks/common/accellib.c \
+# 		$(wildcard $(BENCH_COMMON)/*.c) \
+# 		$(wildcard $(BENCH_COMMON)/*.S) $(LFLAGS) -o $@
+
 
 %-linux: %.c $(GEMMINI_HEADERS)
 	$(CC_LINUX) $(CFLAGS) $< $(LFLAGS) -o $@
 
+# %-linux: %.c $(GEMMINI_HEADERS)
+# 	$(CC_LINUX) $(CFLAGS) $< \
+# 		$(abs_top_srcdir)/riscv-tests/benchmarks/common/accellib.c \
+# 		$(LFLAGS) -o $@
+
+
 %-pk: %.c $(GEMMINI_HEADERS)
 	$(CC_LINUX) $(CFLAGS_PK) $< $(LFLAGS) -o $@
+# %-pk: %.c $(GEMMINI_HEADERS)
+# 	$(CC_LINUX) $(CFLAGS_PK) $< \
+# 		$(abs_top_srcdir)/riscv-tests/benchmarks/common/accellib.c \
+# 		$(LFLAGS) -o $@
+
 
 run-baremetal: $(runs_baremetal)
 

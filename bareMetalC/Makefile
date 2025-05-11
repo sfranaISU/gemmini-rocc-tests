@@ -63,7 +63,12 @@ tests = \
 	gemmini_counter \
 	template \
 	mvin_mvout_bandwidth \
-	AES_test\
+	AES_test \
+	AES_mvin_mvout \
+	AES_mvin_mvout_16 \
+	AES_mvin_mvout_stress \
+	AES_mvin_mvout_RDMA \
+	AES_mvin_mvout_WDMA \
 
 tests_baremetal = $(tests:=-baremetal)
 
